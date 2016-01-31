@@ -12,9 +12,13 @@ import org.junit.Test;
 
 public class MowItNowAppTest {
 
+    /** L'application à tester. */
     private MowItNowApp app;
 
+    /** Dépendance : parser. */
     private MowItNowParser parser;
+
+    /** Dépendance : executor. */
     private OrderExecutor executor;
 
     @Before
@@ -25,8 +29,9 @@ public class MowItNowAppTest {
         app = new MowItNowApp(parser, executor);
     }
 
+    /** Test d'intégration sur le jeu de test de l'énoncé. */
     @Test
-    public void testParseOk() throws Exception {
+    public void testOk() throws Exception {
         String input = "5 5\n"
                 + "1 2 N\n"
                 + "GAGAGAGAA\n"
