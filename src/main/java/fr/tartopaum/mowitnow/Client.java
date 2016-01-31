@@ -4,6 +4,11 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+/**
+ * Exemple d'utilisation de l'API mowitnow.
+ * Se base sur le fichier dont le nom est passé en premier argument de la ligne de commandes.
+ * @author Tartopaum
+ */
 public class Client {
 
     public static void main(String[] args) throws Exception {

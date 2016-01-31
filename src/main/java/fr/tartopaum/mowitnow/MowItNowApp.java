@@ -11,6 +11,11 @@ import fr.tartopaum.mowitnow.model.Grid;
 import fr.tartopaum.mowitnow.model.Order;
 import fr.tartopaum.mowitnow.model.Situation;
 
+/**
+ * Application utilisant l'API mowitnow.
+ * Lit un fichier et écrit dans le flux de sortie les situations finales des tondeuses.
+ * @author Tartopaum
+ */
 public class MowItNowApp {
 
     private final MowItNowParser parser;
