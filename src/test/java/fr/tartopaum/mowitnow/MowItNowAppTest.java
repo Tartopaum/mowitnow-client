@@ -42,6 +42,7 @@ public class MowItNowAppTest {
         app = new MowItNowApp(parser, executor);
     }
 
+    /** Matcher permettant d'extraire une valeur passée en paramètre lors de l'appel d'une méthode d'un mock. */
     public static class ExtractionMatcher<T> extends BaseMatcher<T> {
 
         private T value;
@@ -68,9 +69,9 @@ public class MowItNowAppTest {
     public void testOk() throws Exception {
         String input = "5 5\n"
                 + "1 2 N\n"
-                + "GAGAGAGAA\n"
+                + "G\n"
                 + "3 3 E\n"
-                + "AADAADADDA";
+                + "A";
 
         final ExtractionMatcher<MowItNowHandler> handlerExtractor = new ExtractionMatcher<>();
 
@@ -99,6 +100,7 @@ public class MowItNowAppTest {
 
             app.execute(reader, out);
 
+            // simulation des ordres envoyés par le parseur
             MowItNowHandler handler = handlerExtractor.getValue();
             handler.begin(grid);
 
