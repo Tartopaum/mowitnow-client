@@ -64,9 +64,8 @@ public class MowItNowAppTest {
 
     }
 
-    /** Test d'intégration sur le jeu de test de l'énoncé. */
     @Test
-    public void testOk() throws Exception {
+    public void shouldPrintCorrectResult() throws Exception {
         String input = "5 5\n"
                 + "1 2 N\n"
                 + "G\n"
