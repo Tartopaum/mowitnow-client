@@ -18,7 +18,7 @@ import fr.tartopaum.mowitnow.model.Coordinates;
 import fr.tartopaum.mowitnow.model.Grid;
 import fr.tartopaum.mowitnow.model.Order;
 import fr.tartopaum.mowitnow.model.Orientation;
-import fr.tartopaum.mowitnow.model.Situation;
+import fr.tartopaum.mowitnow.model.Mower;
 
 public class MowItNowAppTest {
 
@@ -76,10 +76,10 @@ public class MowItNowAppTest {
         final ExtractionMatcher<MowItNowHandler> handlerExtractor = new ExtractionMatcher<>();
 
         final Grid grid = new Grid(6, 6);
-        final Situation situation1 = new Situation(new Coordinates(1, 2), Orientation.NORTH);
-        final Situation situation1End = new Situation(new Coordinates(1, 2), Orientation.WEST);
-        final Situation situation2 = new Situation(new Coordinates(3, 3), Orientation.EAST);
-        final Situation situation2End = new Situation(new Coordinates(4, 3), Orientation.EAST);
+        final Mower mower1 = new Mower(new Coordinates(1, 2), Orientation.NORTH);
+        final Mower mower1End = new Mower(new Coordinates(1, 2), Orientation.WEST);
+        final Mower mower2 = new Mower(new Coordinates(3, 3), Orientation.EAST);
+        final Mower mower2End = new Mower(new Coordinates(4, 3), Orientation.EAST);
 
     // exécution
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -90,11 +90,11 @@ public class MowItNowAppTest {
                 {
                     oneOf(parser).parse(with(reader), with(handlerExtractor));
 
-                    oneOf(executor).execute(grid, situation1, Order.TURN_LEFT);
-                    will(returnValue(situation1End));
+                    oneOf(executor).execute(grid, mower1, Order.TURN_LEFT);
+                    will(returnValue(mower1End));
 
-                    oneOf(executor).execute(grid, situation2, Order.GO_FORWARD);
-                    will(returnValue(situation2End));
+                    oneOf(executor).execute(grid, mower2, Order.GO_FORWARD);
+                    will(returnValue(mower2End));
                 }
             });
 
@@ -104,11 +104,11 @@ public class MowItNowAppTest {
             MowItNowHandler handler = handlerExtractor.getValue();
             handler.begin(grid);
 
-            handler.beginMower(situation1);
+            handler.beginMower(mower1);
             handler.order(Order.TURN_LEFT);
             handler.endMower();
 
-            handler.beginMower(situation2);
+            handler.beginMower(mower2);
             handler.order(Order.GO_FORWARD);
             handler.endMower();
 

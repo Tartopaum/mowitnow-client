@@ -9,7 +9,7 @@ import fr.tartopaum.mowitnow.exception.HandlerException;
 import fr.tartopaum.mowitnow.exception.ParseException;
 import fr.tartopaum.mowitnow.model.Grid;
 import fr.tartopaum.mowitnow.model.Order;
-import fr.tartopaum.mowitnow.model.Situation;
+import fr.tartopaum.mowitnow.model.Mower;
 
 /**
  * Application utilisant l'API mowitnow.
@@ -32,12 +32,12 @@ public class MowItNowApp {
         parser.parse(in, new MowItNowHandler() {
 
             private Grid grid;
-            private Situation situation;
+            private Mower mower;
 
             @Override
             public void order(Order order) throws HandlerException {
                 try {
-                    situation = executor.execute(grid, situation, order);
+                    mower = executor.execute(grid, mower, order);
                 } catch (ExecutionException e) {
                     throw new HandlerException(e);
                 }
@@ -45,7 +45,7 @@ public class MowItNowApp {
 
             @Override
             public void endMower() throws HandlerException {
-                out.println(MowItNowApp.this.toString(situation));
+                out.println(MowItNowApp.this.toString(mower));
             }
 
             @Override
@@ -54,8 +54,8 @@ public class MowItNowApp {
             }
 
             @Override
-            public void beginMower(Situation situation) {
-                this.situation = situation;
+            public void beginMower(Mower mower) {
+                this.mower = mower;
             }
 
             @Override
@@ -65,9 +65,9 @@ public class MowItNowApp {
         });
     }
 
-    private String toString(Situation situation) throws HandlerException {
+    private String toString(Mower mower) throws HandlerException {
         String orientationString;
-        switch (situation.getOrientation()) {
+        switch (mower.getOrientation()) {
         case NORTH:
             orientationString = "N";
             break;
@@ -81,12 +81,12 @@ public class MowItNowApp {
             orientationString = "S";
             break;
         default:
-            throw new HandlerException("Orientation non gérée : " + situation.getOrientation());
+            throw new HandlerException("Orientation non gérée : " + mower.getOrientation());
         }
 
         return MessageFormat.format("{0,number,#0} {1,number,#0} {2}",
-                situation.getCoordinates().getX(),
-                situation.getCoordinates().getY(),
+                mower.getCoordinates().getX(),
+                mower.getCoordinates().getY(),
                 orientationString);
     }
 
